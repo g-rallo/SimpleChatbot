@@ -1,0 +1,46 @@
+services:
+
+  mariadb:
+    container_name: mariadb
+    image: mariadb:latest
+    restart: no
+    env_file: .env
+    ports:
+      - "3306:${MYSQL_PORT}"
+    networks:
+      - mariadb_network
+    volumes:
+      - mariadbvolume:/var/lib/mysql
+
+  backend:
+    container_name: backend
+    restart: no
+    env_file: .env
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    command: 
+      - /bin/bash
+      - -c
+      - |
+        python check_db.py --service-name mariadb --port ${MYSQL_PORT}
+        python manage.py migrate
+        python manage.py createsuperuser --noinput 
+        python manage.py runserver 0.0.0.0:${DJANGO_PORT}
+    # createsuperuser --noinput creates a superuser with the DJANGO_SUPERUSER attributes in .env
+    volumes:
+      - .:/app
+    ports:
+      - "8000:${DJANGO_PORT}"
+    # This is not enough, to make sure the backend is created after the mariadb we add the python check_db.py command above
+    depends_on:
+      - mariadb
+    networks:
+      - mariadb_network
+
+networks:
+  mariadb_network:
+    driver: bridge
+
+volumes:
+  mariadbvolume:
