@@ -1,0 +1,11 @@
+<!-- title -->
+<h1>Name: {{ user.name }}</h1>
+<p>Id: {{ user.id }}</p>
+<p>Favorite foods:</p>
+<ul>
+    <!-- lists all the favorite foods -->
+    {% for food in user.favorite_foods.all %}
+        <li>{{ food.name }}</li>
+    {% endfor %}
+</ul>
+<h3>Nutrition: {{ user.nutrition }}</h3>
