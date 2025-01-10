@@ -1,11 +1,20 @@
-<!-- 'current_users' is an element of the dictionary passed as 3rd parameter to the render function in the return of the views.py functions -->
-{% if current_users %}
-    <ul>
-    {% for user in current_users %}
-        <!-- the following href references the view with name 'user_details' from the app 'bot' and passes 'user.id' as a parameter after '/' -->
-        <li><a href="{% url 'bot:user_details' user.id %}">{{ user.name }}</a></li> 
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>There are no users.</p>
-{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+</head>
+<body>
+    <!-- 'current_users' is an element of the dictionary passed as 3rd parameter to the render function in the return of the views.py functions -->
+    {% if current_users %}
+        <ul>
+        {% for user in current_users %}
+            <!-- the following href references the view with name 'user_details' from the app 'bot' and passes 'user.id' as a parameter after '/' -->
+            <li><a href="{% url 'bot:user_details' user.id %}">{{ user.name }}</a></li> 
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no users.</p>
+    {% endif %}
+</body>

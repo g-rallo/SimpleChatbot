@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .title {
+            background-color: #F0F2F5;
+            color: #111B21;
+            text-align: center;
+            padding: 10px;
+            font-size: 20px;
+        }
+
+        .messages {
+            flex-grow: 1;
+            padding: 10px;
+            overflow-y: auto;
+            background-color: #EFEAE2;
+        }
+
+        .message {
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 50%;
+        }
+
+        .message.bot {
+            background-color: #FFFFFF;
+            text-align: left;
+            margin-left: 10px;
+        }
+
+        .message.user {
+            background-color: #D9FDD3;
+            text-align: right;
+            margin-left: auto;
+            margin-right: 10px;
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: row;
+            padding: 10px;
+            background-color:#F0F2F5;
+            border-top: 1px solid #F0F2F5;
+        }
+
+        .text {
+            display: flex;
+            width: calc(100% - 84px);
+            padding: 10px;
+            border: 1px solid #F0F2F5;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .button {
+            padding: 10px 15px;
+            width: 84px;
+            background-color: #64737C;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <form class="top-container" action="{% url 'bot:response' %}" method="post">
+        <input class="text" type="text" id="userInput" placeholder="Type your message here...">
+        <input class="button" type="submit" name="Send" value="Send" />
+    </form>
+    <div class="chat-container">
+        <div class="title">Favorite food chatbot</div>
+        <div class="messages" id="messages">
+            {% for message in messages %}
+                <div class="message {{message.owner}}">{{ message.text }}</div>
+            {% endfor %}
+        </div>
+        <form class="input-container" action="{% url 'bot:response' %}" method="post">
+            <input class="text" type="text" id="userInput" placeholder="Type your message here...">
+            <input class="button" type="submit" name="Send" value="Send" />
+        </form>
+        <!-- <button onclick="sendMessage()">Send</button> -->
+    </div>
+
+    <script>
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const messages = document.getElementById('messages');
+            const userMessage = input.value.trim();
+
+            if (userMessage) {
+                // Add user message to chat
+                const userDiv = document.createElement('div');
+                userDiv.className = 'message user';
+                userDiv.textContent = userMessage;
+                messages.appendChild(userDiv);
+
+                // Simulate bot response
+                const botDiv = document.createElement('div');
+                botDiv.className = 'message bot';
+                botDiv.textContent = 'This is a simulated response.';
+                messages.appendChild(botDiv);
+
+                // Clear input field
+                input.value = '';
+
+                // Scroll to the bottom
+                messages.scrollTop = messages.scrollHeight;
+            }
+        }
+    </script>
+</body>
+</html>

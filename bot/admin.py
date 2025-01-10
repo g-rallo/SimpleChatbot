@@ -1,7 +1,7 @@
 # This file registers the app modules in the Django Admin page
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from bot.models import FoodCategory, Food, User
+from bot.models import FoodCategory, Food, User, Message
 
 admin.site.register(FoodCategory)
 
@@ -16,3 +16,7 @@ class UserAdmin(admin.ModelAdmin):
         return mark_safe(", ".join([child.name for child in obj.favorite_foods.all()]))
     get_favorite_foods.short_description = 'Favorite foods'  #Renames column header
 admin.site.register(User, UserAdmin)
+
+class MessageAdmin(admin.ModelAdmin):
+    list_display = ['user', 'owner', 'message']
+admin.site.register(Message, MessageAdmin)
