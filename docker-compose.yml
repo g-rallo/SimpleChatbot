@@ -26,6 +26,7 @@ services:
         python check_db.py --service-name mariadb --port ${MYSQL_PORT}
         python manage.py migrate
         python manage.py createsuperuser --noinput 
+        python manage.py initialize_food_categories
         python manage.py runserver 0.0.0.0:${DJANGO_PORT}
     # createsuperuser --noinput creates a superuser with the DJANGO_SUPERUSER attributes in .env
     volumes:
