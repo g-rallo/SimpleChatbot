@@ -6,6 +6,7 @@ class FoodCategory(models.Model):
 
     class Meta:
         constraints = [
+            # We don't allow multiple FoodCategory objects with the same name
             models.UniqueConstraint(fields=["name"], name="unique Food Category")
         ]
 
@@ -18,6 +19,7 @@ class Food(models.Model):
 
     class Meta:
         constraints = [
+            # We don't allow multiple Food objects with the same name
             models.UniqueConstraint(fields=["name"], name="unique Food")
         ]
     
