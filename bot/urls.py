@@ -12,11 +12,10 @@ urlpatterns = [
     # ex: /bot/simulate
     path("simulate/", views.simulate, name="simulate"),
 
-    # TODO
-    # ex: /bot/chat/register
-    path("chat/register/", views.user_registration, name="user_registration"),
-    # ex: /bot/conversation
-    path("chat/conversation/", views.conversation, name="conversation"),
+    # ex: /bot/register
+    path("register/", views.user_registration, name="user_registration"),
+    # ex: /bot/chat
+    path("chat/<int:user_id>/", views.conversation, name="conversation"),
 
     # ex: /bot/users
     path("users/", views.users, name="users"),
@@ -28,9 +27,9 @@ urlpatterns = [
     # ex: /bot/simulate_conversations
     path("simulate_conversations/", views.simulate_conversations, name="simulate_conversations"),
     
-    # TODO
     # ex: /bot/create_user
-    path("create_user/<str:name>/", views.create_user, name="create_user"),
+    path("start_conversation/<str:name>/", views.start_conversation, name="start_conversation"),
+    # TODO
     # ex: /bot/response
     path("response/", views.response, name="response"),
     

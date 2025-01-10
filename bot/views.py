@@ -25,7 +25,7 @@ def simulate(request):
     """
     return render(request, "bot/simulate.html")
 
-# TODO
+
 def user_registration(request):
     """
     View that renders the page where the user register himself/herself by writing his/her name
@@ -33,24 +33,14 @@ def user_registration(request):
     return render(request, "bot/register.html")
 
 # TODO
-def conversation(request):
+def conversation(request, user_id):
     """
     View that renders the page of the conversation with the chatbot
     """
-    messages = [
-        {
-            "owner" : "bot",
-            "text" : "Hello! What is your name?"
-        },
-        {
-            "owner" : "user",
-            "text" : "Gil"
-        },
-        {
-            "owner" : "bot",
-            "text" : "What are your top 3 favorite foods?"
-        }
-    ]
+
+    # Getting the messages from the user passed as parameter
+    messages = list(Message.objects.filter(user__id = user_id))
+
     return render(request, "bot/chat.html", {"messages" : messages})
 
 
@@ -116,15 +106,22 @@ def simulate_conversations(request):
 
     return HttpResponseRedirect(reverse("bot:users"))
 
-# TODO
-def create_user(request, name):
+
+def start_conversation(request, name):
     """
-    View that creates a user.
+    View that initiates a conversation: 
+        1. creates a user
+        2. creates the first message
     It is called when the button in the user_registration is pressed
     """
+    # create a user
     user = User.objects.create(name=name)
 
-    return HttpResponseRedirect(reverse("bot:simulate_conversations"))
+    # obtaining and storing question about the user top 3 favorite foods question
+    favorite_foods_question = favorite_food_question_prompt(name=user.name)
+    Message.objects.create(user=user, conversation_stage=Message.CONVERSATION_QUESTIONS["2"], owner=Message.OWNER["BOT"], message=favorite_foods_question)
+
+    return HttpResponseRedirect(reverse("bot:conversation", args=(user.id,)))
 
 # TODO
 def response(request):

@@ -43,13 +43,13 @@
             max-width: 50%;
         }
 
-        .message.bot {
+        .message.Bot {
             background-color: #FFFFFF;
             text-align: left;
             margin-left: 10px;
         }
 
-        .message.user {
+        .message.User {
             background-color: #D9FDD3;
             text-align: right;
             margin-left: auto;
@@ -87,18 +87,15 @@
     </style>
 </head>
 <body>
-    <form class="top-container" action="{% url 'bot:response' %}" method="post">
-        <input class="text" type="text" id="userInput" placeholder="Type your message here...">
-        <input class="button" type="submit" name="Send" value="Send" />
-    </form>
     <div class="chat-container">
         <div class="title">Favorite food chatbot</div>
         <div class="messages" id="messages">
             {% for message in messages %}
-                <div class="message {{message.owner}}">{{ message.text }}</div>
+                <div class="message {{message.owner}}">{{ message.message }}</div>
             {% endfor %}
         </div>
         <form class="input-container" action="{% url 'bot:response' %}" method="post">
+        {% csrf_token %}
             <input class="text" type="text" id="userInput" placeholder="Type your message here...">
             <input class="button" type="submit" name="Send" value="Send" />
         </form>
