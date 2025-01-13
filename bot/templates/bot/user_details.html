@@ -1,3 +1,4 @@
+<!-- This file is contains the HTML code that renders the page with the details of a user. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +8,7 @@
 </head>
 <body>
     <!-- title -->
+     <!-- the user object is passed automatically by the Django Detail view -->
     <h1>Name: {{ user.name }}</h1>
     <p>Id: {{ user.id }}</p>
     <p>Favorite foods:</p>

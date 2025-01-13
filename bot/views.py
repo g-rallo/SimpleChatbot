@@ -1,3 +1,4 @@
+# This file contains all the views from the bot Django app
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404
 from django.http import HttpResponse, HttpResponseRedirect
@@ -44,17 +45,13 @@ def conversation(request, user_id):
 
     return render(request, "bot/chat.html", {"user_id" : user_id, "messages" : messages})
 
+class UsersView(generic.ListView):
+    template_name = "bot/users.html"
+    context_object_name = "current_users"
 
-def users(request):
-    """
-    View that shows a list of all the users
-    """
-    current_users = User.objects.all()
-    context = {
-        "current_users": current_users,
-        "nutrition": "",
-    }
-    return render(request, "bot/users.html", context)
+    def get_queryset(self):
+        """Return the last five published questions."""
+        return User.objects.all()
 
 
 def nutrition_users(request, nutrition):
@@ -68,13 +65,12 @@ def nutrition_users(request, nutrition):
     }
     return render(request, "bot/users.html", context)
 
-
-def user_details(request, user_id):
+class DetailView(generic.DetailView):
     """
-    View that shows the details of the user with the is passed as a parameter
+    Default django view that shows the details of a user
     """
-    user = get_object_or_404(User, pk=user_id)
-    return render(request, "bot/user_details.html", {"user": user})
+    model = User
+    template_name = "bot/user_details.html"
 
 
 # ---------------------- ACTIONS ----------------------
@@ -87,7 +83,7 @@ def simulate_conversations(request):
     for i in range(3):
         # create a user with a random name
         user_name = generate_random_name_prompt()
-        print(user_name)
+
         user_obj = User.objects.create(name=user_name)
 
         # obtaining and storing question about his/her top 3 favorite foods question

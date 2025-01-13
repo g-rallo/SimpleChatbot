@@ -1,3 +1,4 @@
+# This file contains all the API endpoints of the bot Django app
 from django.urls import path
 
 from . import views
@@ -18,9 +19,10 @@ urlpatterns = [
     path("chat/<int:user_id>/", views.conversation, name="conversation"),
 
     # ex: /bot/users/
-    path("users/", views.users, name="users"),
+    path("users/", views.UsersView.as_view(), name="users"),
     # ex: /bot/users/5/
-    path("users/<int:user_id>/", views.user_details, name="user_details"),
+    # we use pk to use the default Django DetailView
+    path("users/<int:pk>/", views.DetailView.as_view(), name="user_details"),
     # ex: /bot/users/nutrition/vegetarian/
     path("users/<str:nutrition>/", views.nutrition_users, name="nutrition_users"),
 

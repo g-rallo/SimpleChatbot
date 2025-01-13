@@ -1,3 +1,6 @@
+<!-- This file is contains the HTML code that renders the page with the list of users. It can be all the users or the ones from a specific nutrition type -->
+<!-- The file is accessed through 2 different views: users and users/<nutrition> -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +29,10 @@
 </head>
 <body>
     {% if current_users %}
-        <h1> {{nutrition}} Users</h1>
+        <!-- If we access the file through the users/nutrition view we want to show the nutrition we are looking at -->
+        {% if nutrition %}
+            <h1> {{nutrition}} Users</h1>
+        {% endif %}
         <table>
             <thead>
                 <tr>
@@ -46,6 +52,12 @@
             </tbody>
         </table>
     {% else %}
-        <h1>There are no users</h1>
+        <!-- If we access the file through the users/nutrition view we want to show the nutrition we are looking at -->
+        {% if nutrition %}
+            <h1>There are no {{nutrition}} users</h1>
+        {% else %}
+            <h1>There are no users</h1>
+        {% endif %}
+        
     {% endif %}
 </body>
