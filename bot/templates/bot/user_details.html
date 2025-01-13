@@ -1,11 +1,22 @@
-<!-- title -->
-<h1>Name: {{ user.name }}</h1>
-<p>Id: {{ user.id }}</p>
-<p>Favorite foods:</p>
-<ul>
-    <!-- lists all the favorite foods -->
-    {% for food in user.favorite_foods.all %}
-        <li>{{ food.name }}</li>
-    {% endfor %}
-</ul>
-<h3>Nutrition: {{ user.nutrition }}</h3>
+<!-- This file is contains the HTML code that renders the page with the details of a user. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User details</title>
+</head>
+<body>
+    <!-- title -->
+     <!-- the user object is passed automatically by the Django Detail view -->
+    <h1>Name: {{ user.name }}</h1>
+    <p>Id: {{ user.id }}</p>
+    <p>Favorite foods:</p>
+    <ul>
+        <!-- lists all the favorite foods -->
+        {% for food in user.favorite_foods.all %}
+            <li>{{ food.name }}</li>
+        {% endfor %}
+    </ul>
+    <h3>Nutrition: {{ user.nutrition }}</h3>
+</body>

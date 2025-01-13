@@ -1,0 +1,105 @@
+<!-- This file is contains the HTML code that renders the page with the chatbot interface. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .title {
+            background-color: #F0F2F5;
+            color: #111B21;
+            text-align: center;
+            padding: 10px;
+            font-size: 20px;
+        }
+
+        .messages {
+            flex-grow: 1;
+            padding: 10px;
+            overflow-y: auto;
+            background-color: #EFEAE2;
+        }
+
+        .message {
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 50%;
+        }
+
+        .message.Bot {
+            background-color: #FFFFFF;
+            text-align: left;
+            margin-left: 10px;
+        }
+
+        .message.User {
+            background-color: #D9FDD3;
+            text-align: right;
+            margin-left: auto;
+            margin-right: 10px;
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: row;
+            padding: 10px;
+            background-color:#F0F2F5;
+            border-top: 1px solid #F0F2F5;
+        }
+
+        .text {
+            display: flex;
+            width: calc(100% - 84px);
+            padding: 10px;
+            border: 1px solid #F0F2F5;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .button {
+            padding: 10px 15px;
+            width: 84px;
+            background-color: #64737C;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="title">Favorite food chatbot</div>
+        <div class="messages" id="messages">
+            {% for message in messages %}
+                <div class="message {{message.owner}}">{{ message.message }}</div>
+            {% endfor %}
+        </div>
+        <form id="userMessageForm" class="input-container" action="{% url 'bot:response' user_id %}" method="post">
+        {% csrf_token %}
+            <input class="text" name="message" type="text" id="userInput" placeholder="Type your message here...">
+            <input class="button" type="submit" name="Send" value="Send" />
+        </form>
+    </div>
+</body>
+</html>

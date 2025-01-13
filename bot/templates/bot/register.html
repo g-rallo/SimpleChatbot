@@ -1,0 +1,73 @@
+<!-- This file is contains the HTML code that renders the page where the user can register himself/herself. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identify yourself</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            background-color:#F0F2F5;
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            border-top: 1px solid #F0F2F5;
+            gap: 24px;
+        }
+
+        .text {
+            display: flex;
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #F0F2F5;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .button:enabled {
+            padding: 10px 15px;
+            width: 200px;
+            background-color: #64737C;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button:disabled {
+            padding: 10px 15px;
+            width: 200px;
+            background-color: #E3E5E4;
+            color: #929699;
+            border: none;
+            border-radius: 5px;
+        }
+
+    </style>
+    <script>
+        function toggleButton() {
+            const textField = document.getElementById('userName');
+            const submitButton = document.getElementById('submitButton');
+            submitButton.disabled = textField.value.trim() === '';
+        }
+    </script>
+</head>
+<body>
+    <form id="userRegistrationForm" class="input-container" action="{% url 'bot:start_conversation' %}" method="post">
+    {% csrf_token %}
+        <h2>What is your name?</h2>
+        <!-- the values of the input divs will be accessible in the view called in the action through the request.POST dictionary by the value of its name parameter -->
+        <input class="text" id="userName" type="text" name="userName" oninput="toggleButton()" placeholder="">
+        <button class="button" id="submitButton" type="submit" disabled>Start conversation</button>
+    </form>
+</body>
+</html>
