@@ -32,7 +32,7 @@
             font-size: 16px;
         }
 
-        .button {
+        .button:enabled {
             padding: 10px 15px;
             width: 200px;
             background-color: #64737C;
@@ -42,25 +42,31 @@
             cursor: pointer;
         }
 
-    </style>
-</head>
-<body>
-    <form id="userRegistrationForm" class="input-container" action="{% url 'bot:start_conversation' 'user_name' %}" method="post">
-    {% csrf_token %}
-        <h2>What is your name?</h2>
-        <input class="text" type="text" id="userName" placeholder="">
-        <button type="submit" class="button" onclick="return updateAction()">Start conversation</button>
-    </form>
+        .button:disabled {
+            padding: 10px 15px;
+            width: 200px;
+            background-color: #E3E5E4;
+            color: #929699;
+            border: none;
+            border-radius: 5px;
+        }
 
+    </style>
     <script>
-        function updateAction() {
-            const message = document.getElementById('userName');
-            const form = document.getElementById('userRegistrationForm');
-            const name = message.value.trim();
-            if (name) {
-                form.action = `/bot/start_conversation/${encodeURIComponent(name)}/`;
-            }
+        function toggleButton() {
+            const textField = document.getElementById('userName');
+            const submitButton = document.getElementById('submitButton');
+            submitButton.disabled = textField.value.trim() === '';
         }
     </script>
+</head>
+<body>
+    <form id="userRegistrationForm" class="input-container" action="{% url 'bot:start_conversation' %}" method="post">
+    {% csrf_token %}
+        <h2>What is your name?</h2>
+        <!-- the values of the input divs will be accessible in the view called in the action through the request.POST dictionary by the value of its name parameter -->
+        <input class="text" id="userName" type="text" name="userName" oninput="toggleButton()" placeholder="">
+        <input class="button" id="submitButton" type="submit" disabled>Start conversation</button>
+    </form>
 </body>
 </html>
