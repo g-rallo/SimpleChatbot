@@ -16,7 +16,7 @@ def redirect_view(request):
     View to redirect to another url.
     This view is called when the url is "/bot". So being in "/bot" will redirect you to the given url.
     """
-    response = redirect('/bot/simulate/')
+    response = redirect('/bot/register/')
     return response
 
 

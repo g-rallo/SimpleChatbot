@@ -49,6 +49,8 @@ class User(models.Model):
         # Otherwise he/she only likes food that Vegan people can eat -> so he/she will be vegetarian
         else:
             self.nutrition, _ = FoodCategory.objects.get_or_create(name="Vegan")
+        
+        return self.nutrition.name
 
 class Message(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

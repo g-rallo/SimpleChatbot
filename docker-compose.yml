@@ -11,6 +11,7 @@ services:
       - mariadb_network
     volumes:
       - mariadbvolume:/var/lib/mysql
+      - ./privilege-setup.sql:/docker-entrypoint-initdb.d/privilege-setup.sql
 
   backend:
     container_name: backend

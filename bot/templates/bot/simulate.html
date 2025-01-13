@@ -37,7 +37,7 @@
 <body>
     <form id="userRegistrationForm" class="input-container" action="{% url 'bot:simulate_conversations' %}" method="post">
     {% csrf_token %}
-        <input class="button" type="submit" value="Simulate 5 conversations">
+        <button class="button" type="submit">Simulate 5 conversations</button>
     </form>
 </body>
 </html>

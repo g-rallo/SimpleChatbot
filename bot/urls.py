@@ -23,7 +23,7 @@ urlpatterns = [
     # ex: /bot/users/5/
     # we use pk to use the default Django DetailView
     path("users/<int:pk>/", views.DetailView.as_view(), name="user_details"),
-    # ex: /bot/users/nutrition/vegetarian/
+    # ex: /bot/users/vegetarian/
     path("users/<str:nutrition>/", views.nutrition_users, name="nutrition_users"),
 
     # ---------------------- ACTIONS ----------------------
