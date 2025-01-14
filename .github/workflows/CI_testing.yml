@@ -22,7 +22,7 @@ jobs:
           env:
             MARIADB_PORT: 3306
             MARIADB_DATABASE: mymariadb
-            MARIADB_USER: admin
+            MARIADB_USER: user
             MARIADB_PASSWORD: your_password
             MARIADB_ROOT_PASSWORD: your_root_password
           ports:
