@@ -10,9 +10,6 @@ urlpatterns = [
     # ex: /bot/
     path("", views.redirect_view),
 
-    # ex: /bot/simulate/
-    path("simulate/", views.simulate_conversations, name="simulate"),
-
     # ex: /bot/register/
     path("register/", views.user_registration, name="user_registration"),
     # ex: /bot/chat/5/
@@ -26,11 +23,7 @@ urlpatterns = [
     # ex: /bot/users/vegetarian/
     path("users/<str:nutrition>/", views.nutrition_users, name="nutrition_users"),
 
-    # ---------------------- ACTIONS ----------------------
-    
-    # ex: /bot/simulate_conversations/
-    path("simulate_conversations/", views.simulate_conversations, name="simulate_conversations"),
-    
+    # ---------------------- ACTIONS ----------------------    
     # ex: /bot/start_conversation/
     path("start_conversation/", views.start_conversation, name="start_conversation"),
 

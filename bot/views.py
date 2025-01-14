@@ -20,13 +20,6 @@ def redirect_view(request):
     return response
 
 
-def simulate_conversations(request):
-    """
-    View that renders the page with a button to simulate 100 conversations
-    """
-    return render(request, "bot/simulate.html")
-
-
 def user_registration(request):
     """
     View that renders the page where the user register himself/herself by writing his/her name
@@ -75,46 +68,6 @@ class DetailView(generic.DetailView):
 
 # ---------------------- ACTIONS ----------------------
 
-def simulate_conversations(request):
-    """
-    View that simulates N conversations
-    """
-    # simulate N conversations
-    for i in range(3):
-        # create a user with a random name
-        user_name = generate_random_name_prompt()
-
-        user_obj = User.objects.create(name=user_name)
-
-        # obtaining and storing question about his/her top 3 favorite foods question
-        favorite_foods_question = favorite_food_question_prompt(name=user_name)
-        Message.objects.create(user=user_obj, conversation_stage=Message.CONVERSATION_QUESTIONS["2"], owner=Message.OWNER["BOT"], message=favorite_foods_question)
-
-        # obtaining and storing user answer
-        user_answer = favorite_food_answer_prompt()
-        Message.objects.create(user=user_obj, conversation_stage=Message.CONVERSATION_QUESTIONS["2"], owner=Message.OWNER["USR"], message=user_answer)
-
-        # identify and storing foods in user answer
-        foods_json = identify_food_prompt(message=user_answer)
-        for food in json.loads(foods_json)["foods"]:
-            food_obj, created = Food.objects.get_or_create(name=food)
-
-            # it could be that the food had already been mentioned before by another user, in that case we already have its category
-            if created:
-                category = identify_food_category_prompt(food=food_obj.name)
-                food_obj.category = FoodCategory.objects.get(name=category)
-                food_obj.save()
-
-            # Adding the Food as a favorite one of the user (adding object in the ManyToMany field)
-            user_obj.favorite_foods.add(food_obj)
-        
-        # Calculating the nutrition category of the user based on his/her top 3 favorite foods
-        user_obj.calculate_nutrition()
-        user_obj.save()
-
-    return HttpResponseRedirect(reverse("bot:users"))
-
-
 def start_conversation(request):
     """
     View that initiates a conversation: 
@@ -130,7 +83,7 @@ def start_conversation(request):
 
     # obtaining and storing question about the user top 3 favorite foods question
     favorite_foods_question = favorite_food_question_prompt(name=user.name)
-    Message.objects.create(user=user, conversation_stage=Message.CONVERSATION_QUESTIONS["2"], owner=Message.OWNER["BOT"], message=favorite_foods_question)
+    Message.objects.create(user=user, conversation_stage=Message.CONVERSATION_QUESTIONS["2"], owner=Message.OWNER["BOT"], message=favorite_foods_question[:200])
 
     return HttpResponseRedirect(reverse("bot:conversation", args=(user.id,)))
 
@@ -153,7 +106,7 @@ def response(request, user_id):
     use_message = request.POST['message']
     user = User.objects.get(pk=user_id)
 
-    Message.objects.create(user=user, conversation_stage=Message.CONVERSATION_QUESTIONS["2"], owner=Message.OWNER["USR"], message=use_message)
+    Message.objects.create(user=user, conversation_stage=Message.CONVERSATION_QUESTIONS["2"], owner=Message.OWNER["USR"], message=use_message[:200])
 
     # identify and storing foods in user answer
     foods_json = identify_food_prompt(message=use_message)
@@ -174,6 +127,6 @@ def response(request, user_id):
     user.save()
 
     bot_answer = f"It looks like you are {user.nutrition}!"
-    Message.objects.create(user=user, conversation_stage=Message.CONVERSATION_QUESTIONS["2"], owner=Message.OWNER["BOT"], message=bot_answer)
+    Message.objects.create(user=user, conversation_stage=Message.CONVERSATION_QUESTIONS["2"], owner=Message.OWNER["BOT"], message=bot_answer[:200])
 
     return HttpResponseRedirect(reverse("bot:conversation", args=(user.id,)))
