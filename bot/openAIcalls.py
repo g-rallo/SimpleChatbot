@@ -43,7 +43,7 @@ def favorite_food_answer_prompt():
     completion = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
-            {"role": "developer", "content": f"You are a user and you have been asked about what are your top 3 favorite foods. Answer it in a short and simple way. Consider that users can be Omnivore, Vegetarian, Vegan, ..."}
+            {"role": "developer", "content": f"You are a user and you have been asked about what are your top 3 favorite foods. Answer it in a short and simple way. Consider all the existing foods in the world, from Vegan people to Omnivore people, some users might like some weird food."}
         ]
     )
 
