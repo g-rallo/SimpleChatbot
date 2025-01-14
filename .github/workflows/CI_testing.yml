@@ -21,7 +21,7 @@ jobs:
           # MARIADB_USER is also hardcoded into `privilege-setup.sql`, which is vital for functionality!
           env:
             MARIADB_PORT: 3306
-            MARIADB_DATABASE: development
+            MARIADB_DATABASE: mymariadb
             MARIADB_USER: admin
             MARIADB_PASSWORD: your_password
             MARIADB_ROOT_PASSWORD: your_root_password
