@@ -1,0 +1,82 @@
+name: CI-Testing
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  Unit-Tests:
+      name: Unit Tests 
+      runs-on: ubuntu-latest
+      services:
+        mariadb:
+          image: mariadb:latest
+          # Variables defined in `.env` are in principle only available to the steps in the Github Action.
+          # Therefore, some variables are sadly double-defined, which goes against DRY-principles. 
+          # Nonetheless, this is the best solution at the moment. Editing anything here will require editing
+          # - Github Action Variables/secrets
+          # - .env files
+          # MARIADB_USER is also hardcoded into `privilege-setup.sql`, which is vital for functionality!
+          env:
+            MARIADB_PORT: 3306
+            MARIADB_DATABASE: development
+            MARIADB_USER: admin
+            MARIADB_PASSWORD: your_password
+            MARIADB_ROOT_PASSWORD: your_root_password
+          ports:
+            - 3306:3306
+
+      # See comment in the mariadb container
+      # env.example contains MARIADB_HOST=mariadb. 
+      # This cannot be read outside of the docker container, so we need to manually overwrite it to
+      # 127.0.0.1 
+      # Furthermore, we cannot use localhost, because that sends out a UNIX socket connection.
+      env:
+        MARIADB_HOST: 127.0.0.1
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+      steps:
+      - name: Checkout repository simple-chatbot
+        uses: actions/checkout@v4
+        # with:
+        #   token: ${{ secrets.ALGORITHMS_DEPLOYKEY }}
+
+      - name: Wait for MariaDB to be ready
+        run: |
+          until mysqladmin ping -h 127.0.0.1 -u root -pyour_root_password --silent; do
+            echo "Waiting for MariaDB service..."
+            sleep 3
+          done
+
+      - name: Grant privileges
+        # Run the commands in `privilige-setup.sql` manually
+        run: |
+          mysql -h 127.0.0.1 -u root -pyour_root_password -e "GRANT ALL PRIVILEGES ON *.* TO 'admin'@'%' WITH GRANT OPTION;"
+          mysql -h 127.0.0.1 -u root -pyour_root_password -e "FLUSH PRIVILEGES;"
+
+      # This step sets up the environment variables that are not required in the 
+      # MariaDB service above, and do not contain not sensitive information.
+      # Any duplicate definitions will be overwritten by the Github Variables assigned above.
+      - name: Setup Environment variables
+        run: cp .env.example .env
+
+      - name: Set-up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11.1'
+          cache: 'pip' # caching pip dependencies
+
+      - name: Install pip requirements
+        run: pip install -r requirements.txt
+
+      - name: Perform migrations
+        run: |
+          python check_db.py --service-name mariadb --ip 127.0.0.1 --port 3306
+          python -Wa manage.py migrate
+          python -Wa manage.py collectstatic --no-input
+
+      - name: Run Django tests
+        run: |
+          python -Wa manage.py test
