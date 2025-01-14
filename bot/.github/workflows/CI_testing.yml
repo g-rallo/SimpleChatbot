@@ -1,0 +1,17 @@
+name: CI-Testing # Name of the workflow
+
+on:   # Trigger the workflow on a push or pull_request event to the main branch in the repo
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs: 
+  test_project:
+    runs-on: ubuntu-latest # operating system your code will run on
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - run: pip install -r requirements.txt # install all our dependencies for the project
+      - run: python manage.py test # run pytest test
+
