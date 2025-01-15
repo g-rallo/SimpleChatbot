@@ -29,7 +29,7 @@ DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = ['simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net', '127.0.0.1']
 
-CRSF_TRUSTED_ORIGINS = ["fintech-app.azurewebsites.net"]
+CRSF_TRUSTED_ORIGINS = ["https://simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"]
 
 
 # Application definition
