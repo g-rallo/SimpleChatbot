@@ -100,4 +100,4 @@ class Command(BaseCommand):
         
         finish = datetime.now()
 
-        print(finish-start)
+        print(f"Executed in {finish-start}")
