@@ -57,7 +57,7 @@ jobs:
           mysql -h 127.0.0.1 -u root -pyour_root_password -e "FLUSH PRIVILEGES;"
 
       # This step sets up the environment variables that are not required in the 
-      # MariaDB service above, and do not contain not sensitive information.
+      # MariaDB service above, and do not contain sensitive information.
       # Any duplicate definitions will be overwritten by the Github Variables assigned above.
       - name: Setup Environment variables
         run: cp .env.example .env
@@ -73,7 +73,7 @@ jobs:
 
       - name: Perform migrations
         run: |
-          python check_db.py --service-name mariadb --ip 127.0.0.1 --port 3306
+          python check_db.py --service-name mariadb --ip mariadb --port 3306
           python -Wa manage.py migrate
           python -Wa manage.py collectstatic --no-input
 
