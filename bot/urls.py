@@ -23,6 +23,9 @@ urlpatterns = [
     # ex: /bot/users/vegetarian/
     path("users/<str:nutrition>/", views.nutrition_users, name="nutrition_users"),
 
+    # ex: /bot/users/vegetarian/api/
+    path("users/<str:nutrition>/api/", views.UsersNutritionList.as_view(), name="nutrition_users_api"),
+
     # ---------------------- ACTIONS ----------------------    
     # ex: /bot/start_conversation/
     path("start_conversation/", views.start_conversation, name="start_conversation"),
