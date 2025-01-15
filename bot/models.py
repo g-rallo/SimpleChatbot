@@ -59,7 +59,7 @@ class Message(models.Model):
     CONVERSATION_QUESTIONS = {
         "1" : "NAME",
         "2" : "FOOD",
-        "3" : "FINISH"
+        "3" : "END"
     }
     conversation_stage = models.CharField(max_length=4, choices=CONVERSATION_QUESTIONS)
 
