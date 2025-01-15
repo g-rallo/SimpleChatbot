@@ -25,11 +25,17 @@ SECRET_KEY = config('DJANGO_SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG')
+DEBUG = config('DEBUG') == 'True'
 
-ALLOWED_HOSTS = ['simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net', '127.0.0.1']
+ALLOWED_HOSTS = [
+    'localhost',
+    'simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net'
+]
 
-CRSF_TRUSTED_ORIGINS = ["fintech-app.azurewebsites.net"]
+CRSF_TRUSTED_ORIGINS = [
+    "http://localhost:8000",
+    "https://simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
+]
 
 
 # Application definition
