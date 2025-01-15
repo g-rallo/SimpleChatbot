@@ -20,11 +20,12 @@ jobs:
           # - .env files
           # MARIADB_USER is also hardcoded into `privilege-setup.sql`, which is vital for functionality!
           env:
-            MARIADB_PORT: 3306
-            MARIADB_DATABASE: mymariadb
-            MARIADB_USER: user
-            MARIADB_PASSWORD: your_password
-            MARIADB_ROOT_PASSWORD: your_root_password
+            MYSQL_PORT: 3306
+            MYSQL_HOST: mariadb
+            MYSQL_DATABASE: mymariadb
+            MYSQL_USER: user
+            MYSQL_PASSWORD: your_password
+            MYSQL_ROOT_PASSWORD: your_root_password
           ports:
             - 3306:3306
 
