@@ -66,4 +66,4 @@ jobs:
         with:
           app-name: 'SimpleChatBot'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_ba4bc66540904293ac57adb3160fab68 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E1AE1877511846FBBB409FC63065E4A3 }}
