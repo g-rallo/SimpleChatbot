@@ -52,7 +52,7 @@ def favorite_food_answer_prompt():
 
             **Example 1:** "I am vegan so I love guacamole, garlic bread, and aubergine."
 
-            **Example 2:** "Mh let me think... I would say spaghetti carbonara, ramen, and chicken fingers."
+            **Example 2:** Mh let me think... I would say spaghetti carbonara, ramen, and chicken fingers.
             
             """}
         ],
