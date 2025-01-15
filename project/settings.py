@@ -25,7 +25,7 @@ SECRET_KEY = config('DJANGO_SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = config('DEBUG') == 'True'
 
 ALLOWED_HOSTS = ['simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net', '127.0.0.1']
 
