@@ -35,7 +35,7 @@ jobs:
       # 127.0.0.1 
       # Furthermore, we cannot use localhost, because that sends out a UNIX socket connection.
       env:
-        MARIADB_HOST: 127.0.0.1
+        MYSQL_HOST: 127.0.0.1
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
       steps:
