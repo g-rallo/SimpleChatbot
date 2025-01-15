@@ -4,6 +4,8 @@ from django.http import Http404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
+from rest_framework.views import APIView
+from rest_framework.views import Response
 import json
 
 from bot.models import FoodCategory, Food, User, Message
@@ -49,7 +51,7 @@ class UsersView(generic.ListView):
 
 def nutrition_users(request, nutrition):
     """
-    View that shows a list of all the users with a the nutrition given as a parameter
+    View that shows a list of all the users with the nutrition given as a parameter
     """
     current_users = User.objects.filter(nutrition__name=nutrition)
     context = {
@@ -131,3 +133,15 @@ def response(request, user_id):
     Message.objects.create(user=user, conversation_stage=Message.CONVERSATION_QUESTIONS["3"], owner=Message.OWNER["BOT"], message=bot_answer[:200])
 
     return HttpResponseRedirect(reverse("bot:conversation", args=(user.id,)))
+
+class UsersNutritionList(APIView):
+    """
+    View that returns all the users with  the nutrition given as parameter
+    """
+    def get(self, request, nutrition):
+
+        users = []
+        for u in User.objects.filter(nutrition__name=nutrition):
+            users.append({'name' : u.name, 'favorite_foods' : [f.name for f in u.favorite_foods.all()]})
+
+        return Response(users)

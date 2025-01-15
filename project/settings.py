@@ -25,10 +25,10 @@ SECRET_KEY = config('DJANGO_SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = config('DEBUG') == 'True'
-DEBUG = True
+DEBUG = config('DEBUG') == 'True'
 
 CSRF_COOKIE_DOMAIN = ".simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
+
 SESSION_COOKIE_DOMAIN = ".simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
 
 ALLOWED_HOSTS = [
@@ -54,6 +54,9 @@ INSTALLED_APPS = [
     
     # local app
     'bot.apps.BotConfig',
+
+    # third apps
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
