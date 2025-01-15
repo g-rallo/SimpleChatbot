@@ -13,8 +13,6 @@ def generate_random_name_prompt():
         messages=[
             {"role": "developer", "content": "Give a random first name"}
         ],
-        frequency_penalty=1.0,
-        temperature=1.0
     )
 
     return completion.choices[0].message.content
@@ -43,8 +41,21 @@ def favorite_food_answer_prompt():
     completion = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
-            {"role": "developer", "content": f"You are a user and you have been asked about what are your top 3 favorite foods. Answer it in a short and simple way. Consider all the existing foods in the world, from Vegan people to Omnivore people, some users might like some weird food."}
-        ]
+            {"role": "developer", "content": f"""
+            You are a user and you have been asked about what are your top 3 favorite foods. Answer in a short and simple way. Consider all the existing foods in the world, from Vegan people to Omnivore people, some users might like some unique or unusual foods.
+
+            # Output Format
+
+            The output should be a concise list or sentence stating the user's top 3 favorite foods.
+
+            # Examples
+
+            **Example 1:** "I am vegan so I love guacamole, garlic bread, and aubergine."
+
+            **Example 2:** "Mh let me think... I would say spaghetti carbonara, ramen, and chicken fingers."
+            
+            """}
+        ],
     )
 
     return completion.choices[0].message.content
@@ -65,8 +76,6 @@ def identify_food_prompt(message):
         messages=[
             {"role": "developer", "content": f"Identify the foods mentioned in the text: '{message}. Return your answer in a json format as follows: ['Pasta', 'Pork', 'Apples'] with key='foods' "}
         ],
-        frequency_penalty=1.0,
-        temperature=1.0,
         response_format = { "type": "json_object" }
     )
 
