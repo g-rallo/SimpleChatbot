@@ -32,6 +32,11 @@ ALLOWED_HOSTS = [
     'simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net'
 ]
 
+CORS_ALLOWED_ORIGINS = [    
+    "http://localhost:8000",
+    "https://simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
+]
+
 CRSF_TRUSTED_ORIGINS = [
     "http://localhost:8000",
     "https://simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
