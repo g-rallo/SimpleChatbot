@@ -72,6 +72,14 @@ TEMPLATES = [
     },
 ]
 
+# Where static files like css, javascript and images will be collected during development
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static'
+
+# Where media files uploaded by the user will be stored
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 WSGI_APPLICATION = 'project.wsgi.application'
 
 

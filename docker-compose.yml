@@ -24,7 +24,7 @@ services:
       - /bin/bash
       - -c
       - |
-        python check_db.py --service-name mariadb --port ${MYSQL_PORT}
+        python check_db.py --service-name mariadb --ip mariadb --port ${MYSQL_PORT}
         python manage.py migrate
         python manage.py createsuperuser --noinput 
         python manage.py initialize_food_categories
