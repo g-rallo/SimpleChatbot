@@ -83,6 +83,7 @@ def start_conversation(request):
 
     # obtaining and storing question about the user top 3 favorite foods question
     favorite_foods_question = favorite_food_question_prompt(name=user.name)
+    print(Message.CONVERSATION_QUESTIONS["2"])
     Message.objects.create(user=user, conversation_stage=Message.CONVERSATION_QUESTIONS["2"], owner=Message.OWNER["BOT"], message=favorite_foods_question[:200])
 
     return HttpResponseRedirect(reverse("bot:conversation", args=(user.id,)))
@@ -127,6 +128,6 @@ def response(request, user_id):
     user.save()
 
     bot_answer = f"It looks like you are {user.nutrition}!"
-    Message.objects.create(user=user, conversation_stage=Message.CONVERSATION_QUESTIONS["2"], owner=Message.OWNER["BOT"], message=bot_answer[:200])
+    Message.objects.create(user=user, conversation_stage=Message.CONVERSATION_QUESTIONS["3"], owner=Message.OWNER["BOT"], message=bot_answer[:200])
 
     return HttpResponseRedirect(reverse("bot:conversation", args=(user.id,)))

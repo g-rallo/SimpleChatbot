@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             name='Message',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('conversation_stage', models.CharField(choices=[('1', 'NAME'), ('2', 'FOOD'), ('3', 'FINISH')], max_length=4)),
+                ('conversation_stage', models.CharField(choices=[('1', 'NAME'), ('2', 'FOOD'), ('3', 'END')], max_length=4)),
                 ('owner', models.CharField(choices=[('USR', 'User'), ('BOT', 'Bot')], max_length=4)),
                 ('message', models.CharField(max_length=200)),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='bot.user')),
