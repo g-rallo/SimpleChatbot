@@ -27,14 +27,12 @@ SECRET_KEY = config('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG') == 'True'
 
+CSRF_COOKIE_DOMAIN = ".simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
+SESSION_COOKIE_DOMAIN = ".simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
+
 ALLOWED_HOSTS = [
     'localhost',
     'simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net'
-]
-
-CORS_ALLOWED_ORIGINS = [    
-    "http://localhost:8000",
-    "https://simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
 ]
 
 CRSF_TRUSTED_ORIGINS = [
