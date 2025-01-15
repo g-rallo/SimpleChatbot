@@ -1,31 +1,16 @@
 <!-- This file is contains the HTML code that renders the page with the list of users. It can be all the users or the ones from a specific nutrition type -->
 <!-- The file is accessed through 2 different views: users and users/<nutrition> -->
 
+<!-- Reading the css style from the bot app static file -->
+{% load static %}
+<link rel="stylesheet" href="{% static 'bot/style.css' %}">
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Users</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            font-size: 18px;
-            text-align: left;
-        }
-        th, td {
-            padding: 12px;
-            border: 1px solid #ddd;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-    </style>
 </head>
 <body>
     {% if current_users %}

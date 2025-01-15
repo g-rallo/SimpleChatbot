@@ -1,4 +1,9 @@
 <!-- This file is contains the HTML code that renders the page where the user can register himself/herself. -->
+
+<!-- Reading the css style from the bot app static file -->
+{% load static %}
+<link rel="stylesheet" href="{% static 'bot/style.css' %}">
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +18,10 @@
             align-items: center;
             height: 100vh;
             background-color:#F0F2F5;
+            background: #F0F2F5 url("../../static/bot/images/bot-icon.png") no-repeat;
+            background-size: 300px;
+            background-position-x: center;
+            background-position-y: center;
         }
 
         .input-container {
@@ -68,6 +77,7 @@
         <!-- the values of the input divs will be accessible in the view called in the action through the request.POST dictionary by the value of its name parameter -->
         <input class="text" id="userName" type="text" name="userName" oninput="toggleButton()" placeholder="">
         <button class="button" id="submitButton" type="submit" disabled>Start conversation</button>
+        <image/>
     </form>
 </body>
 </html>
