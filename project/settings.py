@@ -28,8 +28,10 @@ SECRET_KEY = config('DJANGO_SECRET_KEY')
 # DEBUG = config('DEBUG') == 'True'
 DEBUG = True
 
+CSRF_COOKIE_SECURE = False
 CSRF_COOKIE_DOMAIN = "simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
 
+SESSION_COOKIE_SECURE = False
 SESSION_COOKIE_DOMAIN = "simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
 
 ALLOWED_HOSTS = [
