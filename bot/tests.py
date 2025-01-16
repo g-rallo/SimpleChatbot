@@ -68,15 +68,17 @@ class UsersViewTest(TestCase):
     """
     Class for the methods to test the users view
     """
+    def setUp(self):
+        """
+        Method that is executed for and before every other method in the class
+        The database is reset for each test method, so we need to create the data needed for the tests
+        """
+        create_test_data()
 
     def test_all_users_shown_in_users_view(self):
         """
         Tests if the users view is showing all the users created
         """
-
-        # The database is reset for each test method, so we need to create the data needed for the tests
-        create_test_data()
-
         # getting all the users that have to appear in the view
         current_users = User.objects.all()
 
@@ -94,10 +96,6 @@ class UsersViewTest(TestCase):
         """
         Tests if the /users/vegetarian view is showing the vegetarian users
         """
-
-        # The database is reset for each test method, so we need to create the data needed for the tests
-        create_test_data()
-
         # we calculate the nutrition type of every user, this step could also be added in the create_test_data() function but I left if out to test its output in the test_right_nutrition_type_calculated_for_user()
         for u in User.objects.all():
             u.calculate_nutrition()
