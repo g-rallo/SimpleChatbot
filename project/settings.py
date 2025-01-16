@@ -32,16 +32,22 @@ CSRF_COOKIE_DOMAIN = "simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.ne
 
 SESSION_COOKIE_DOMAIN = "simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
 
+# Specify from which domains the django backend can be directly accessed. 
+# This includes the DRF api view /bot/... as well as the Django Admin panel /admin/
 ALLOWED_HOSTS = [
     'localhost',
     'simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net'
 ]
 
+# Specifies from which origins unsafe requests (e.g. POST, PUT) can be made. 
+# These need to include our front-end application URLs
 CORS_ALLOWED_ORIGINS = [    
     'http://localhost:8000',
     'https://simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net'
 ]
 
+# Specifies from which origins CSRFTokens can be trusted. 
+# This needs to include our front-end application URLs.
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000',
     'https://simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net'
@@ -109,7 +115,10 @@ DATABASES = {
         'USER': config('MYSQL_USER'),
         'PASSWORD': config('MYSQL_PASSWORD'),
         'OPTIONS': {
-            'ssl': {'ca': BASE_DIR / 'BaltimoreCyberTrustRoot.crt.pem'}
+            'ssl': {
+                'ca': BASE_DIR / 'DigiCertGlobalRootCA.crt.pem',
+                'verify_cert': True,  # Ensures SSL certificate is verified
+            },
         }
     }
 }
