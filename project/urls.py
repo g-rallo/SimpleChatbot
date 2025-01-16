@@ -20,7 +20,8 @@ from django.urls import include, path
 from .views import redirect_view 
 
 urlpatterns = [
-    path("bot/", include("bot.urls")),
-    path("admin/", admin.site.urls),
     path("", redirect_view),
+    path("admin/", admin.site.urls),
+    path('api/auth/', include('rest_framework.urls')),
+    path("bot/", include("bot.urls")),
 ]
