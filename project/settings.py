@@ -115,7 +115,10 @@ DATABASES = {
         'USER': config('MYSQL_USER'),
         'PASSWORD': config('MYSQL_PASSWORD'),
         'OPTIONS': {
-            'ssl': {'ca': BASE_DIR / 'DigiCertGlobalRootCA.crt.pem'}
+            'ssl': {
+                'ca': BASE_DIR / 'DigiCertGlobalRootCA.crt.pem',
+                'verify_cert': True,  # Ensures SSL certificate is verified
+            },
         }
     }
 }
