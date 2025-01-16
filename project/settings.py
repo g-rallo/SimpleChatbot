@@ -103,6 +103,9 @@ DATABASES = {
         'NAME': config('MYSQL_DATABASE'),
         'USER': config('MYSQL_USER'),
         'PASSWORD': config('MYSQL_PASSWORD'),
+        'OPTIONS': {
+            'ssl': {'ca': BASE_DIR / 'DigiCertGlobalRootCA.crt.pem'}
+        }
     }
 }
 
