@@ -6,6 +6,8 @@ from django.urls import reverse
 from django.views import generic
 from rest_framework.views import APIView
 from rest_framework.views import Response
+from rest_framework import permissions
+
 import json
 
 from bot.models import FoodCategory, Food, User, Message
@@ -85,7 +87,7 @@ def start_conversation(request):
 
     # obtaining and storing question about the user top 3 favorite foods question
     favorite_foods_question = favorite_food_question_prompt(name=user.name)
-    print(Message.CONVERSATION_QUESTIONS["2"])
+
     Message.objects.create(user=user, conversation_stage=Message.CONVERSATION_QUESTIONS["2"], owner=Message.OWNER["BOT"], message=favorite_foods_question[:200])
 
     return HttpResponseRedirect(reverse("bot:conversation", args=(user.id,)))
@@ -138,6 +140,7 @@ class UsersNutritionList(APIView):
     """
     View that returns all the users with  the nutrition given as parameter
     """
+    permission_classes = [permissions.IsAuthenticated]
     def get(self, request, nutrition):
 
         users = []
