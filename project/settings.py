@@ -42,10 +42,10 @@ DEBUG = True
 # CORS_ALLOW_CREDENTIALS = True
 
 CSRF_COOKIE_SECURE = config('BRANCH') == 'main'
-CSRF_COOKIE_DOMAIN = 'localhost' if config('BRANCH') == 'develop' else "simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
+CSRF_COOKIE_DOMAIN = "localhost" if config('BRANCH') == 'develop' else "simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
 
 SESSION_COOKIE_SECURE = config('BRANCH') == 'main'
-SESSION_COOKIE_DOMAIN = 'localhost' if config('BRANCH') == 'develop' else "simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
+SESSION_COOKIE_DOMAIN = "localhost" if config('BRANCH') == 'develop' else "simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
 
 
 # Specify from which domains the django backend can be directly accessed. 
