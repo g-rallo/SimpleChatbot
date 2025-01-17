@@ -32,20 +32,24 @@ DEBUG = True
 # SECURE_HSTS_SECONDS = 3600 if config('BRANCH') == 'develop' else 0
 
 # Determines behaviour of when the browser accepts the sessionid cookie 
-SESSION_COOKIE_SAMESITE = 'Lax'         # Set to only accept cookies if the requester is also from localhost
-SESSION_COOKIE_HTTPONLY = False         # Set to only allow http requests on the cookie, not further scripting with JavaScript
-SESSION_COOKIE_AGE = 7*24*60*60         # 1 week in seconds
+# SESSION_COOKIE_SAMESITE = 'Lax'         # Set to only accept cookies if the requester is also from localhost
+# SESSION_COOKIE_HTTPONLY = False         # Set to only allow http requests on the cookie, not further scripting with JavaScript
+# SESSION_COOKIE_AGE = 7*24*60*60         # 1 week in seconds
 
-CSRF_COOKIE_SAMESITE = 'Lax'            # Set to only accept cookies if the requester is also from host
-CSRF_COOKIE_HTTPONLY = False            # Set to allow JavaScript scripting on the cookie
+# CSRF_COOKIE_SAMESITE = 'Lax'            # Set to only accept cookies if the requester is also from host
+# CSRF_COOKIE_HTTPONLY = False            # Set to allow JavaScript scripting on the cookie
 
-CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_CREDENTIALS = True
 
-CSRF_COOKIE_SECURE = config('BRANCH') == 'main'
-CSRF_COOKIE_DOMAIN = "localhost" if config('BRANCH') == 'develop' else "simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
+# CSRF_COOKIE_SECURE = False
+# CSRF_COOKIE_DOMAIN = "localhost"
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_DOMAIN = "simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
 
-SESSION_COOKIE_SECURE = config('BRANCH') == 'main'
-SESSION_COOKIE_DOMAIN = "localhost" if config('BRANCH') == 'develop' else "simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
+# SESSION_COOKIE_SECURE = False
+# SESSION_COOKIE_DOMAIN = "localhost"
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_DOMAIN = "simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
 
 # SECURE_SSL_REDIRECT = True
 
