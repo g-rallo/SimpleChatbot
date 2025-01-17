@@ -28,8 +28,14 @@ SECRET_KEY = config('DJANGO_SECRET_KEY')
 # DEBUG = config('DEBUG') == 'True'
 DEBUG = True
 
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = config('DEBUG') == False
+# SECURE_HSTS_SECONDS = 3600 if config('DEBUG') == False else 0
+
+
+CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_DOMAIN = "simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
 
+SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_DOMAIN = "simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
 
 # Specify from which domains the django backend can be directly accessed. 
