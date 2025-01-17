@@ -78,18 +78,20 @@ class Command(BaseCommand):
             --execution <str:p(parallel)/s(serial)>
 
         """
+        execution = options['e']
+        n_conversations = options['n']
         start = datetime.now()
 
-        if options['e'] == 's':
+        if execution == 's':
             # Serial execution
-            for i in range(options['n']):
+            for i in range(n_conversations):
                 print(f"Running conversation {i+1}")
                 self.simulate_conversation()
         
-        elif options['e'] == 'p':
+        elif execution == 'p':
             # Parallel execution
             proc = []
-            for i in range(options['n']):
+            for i in range(n_conversations):
                 print(f"Starting conversation {i+1}")  
                 p = Process(target=self.simulate_conversation())
                 p.start()
