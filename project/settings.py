@@ -25,11 +25,8 @@ SECRET_KEY = config('DJANGO_SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = config('DEBUG') == 'True'
+# DEBUG = config('BRANCH') == 'develop'
 DEBUG = True
-
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = config('DEBUG') == False
-# SECURE_HSTS_SECONDS = 3600 if config('DEBUG') == False else 0
 
 # Determines behaviour of when the browser accepts the sessionid cookie 
 SESSION_COOKIE_SAMESITE = 'Lax'         # Set to only accept cookies if the requester is also from localhost
@@ -41,11 +38,11 @@ CSRF_COOKIE_HTTPONLY = False            # Set to allow JavaScript scripting on t
 
 CORS_ALLOW_CREDENTIALS = True
 
-CSRF_COOKIE_SECURE = True
-CSRF_COOKIE_DOMAIN = "simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
+CSRF_COOKIE_SECURE = config('BRANCH') == 'main'
+CSRF_COOKIE_DOMAIN = "localhost" if config('BRANCH') == 'develop' else "simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
 
-SESSION_COOKIE_SECURE = True
-SESSION_COOKIE_DOMAIN = "simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
+SESSION_COOKIE_SECURE = config('BRANCH') == 'main'
+SESSION_COOKIE_DOMAIN = "localhost" if config('BRANCH') == 'develop' else "simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
 
 # Specify from which domains the django backend can be directly accessed. 
 # This includes the DRF api view /bot/... as well as the Django Admin panel /admin/
