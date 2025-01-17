@@ -43,8 +43,8 @@ jobs:
             release.zip
             !venv/
 
-    - name: Check BRANCH value
-      run: echo "BRANCH: $BRANCH" 
+      - name: Check BRANCH value
+        run: echo "BRANCH: $BRANCH" 
 
   deploy:
     runs-on: ubuntu-latest
