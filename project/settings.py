@@ -47,7 +47,7 @@ CSRF_COOKIE_DOMAIN = "localhost" if config('BRANCH') == 'develop' else "simplech
 SESSION_COOKIE_SECURE = config('BRANCH') == 'main'
 SESSION_COOKIE_DOMAIN = "localhost" if config('BRANCH') == 'develop' else "simplechatbot-h3e2ceeyefgxhpcf.uksouth-01.azurewebsites.net"
 
-SECURE_SSL_REDIRECT = True
+# SECURE_SSL_REDIRECT = True
 
 # Specify from which domains the django backend can be directly accessed. 
 # This includes the DRF api view /bot/... as well as the Django Admin panel /admin/
